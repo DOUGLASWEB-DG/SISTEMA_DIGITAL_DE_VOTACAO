@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  /* Paleta Inspirada na Bandeira do Brasil */
+  --color-brazil-blue: #002776;   /* Azul da Bandeira */
+  --color-brazil-green: #009739;  /* Verde da Bandeira */
+  --color-brazil-yellow: #fedd00; /* Amarelo da Bandeira */
+
+  /* Cores de Interface Baseadas no Azul */
+  --color-brand-primary: var(--color-brazil-blue);
+  --color-brand-secondary: var(--color-brazil-green);
+  --color-brand-accent: var(--color-brazil-yellow);
+
+  --color-background-soft: #f4f7fa;
+  --color-text-main: #0a1128;
+}
