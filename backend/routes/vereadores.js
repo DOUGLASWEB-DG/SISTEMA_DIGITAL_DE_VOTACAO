@@ -4,7 +4,7 @@ const router = require('express').Router()
 const db = require('../db')
 const upload = require('../upload')
 router.get('/', async (req, res) => {
-  const [rows] = await db.query('SELECT * FROM vereadores WHERE ativo = 1 ORDER BY nome')
+  const [rows] = await db.query('SELECT * FROM vereadores ORDER BY nome')
   res.json(rows)
 })
 

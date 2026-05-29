@@ -108,13 +108,14 @@ export function Vereadores() {
               <th className="px-4 py-3 text-left">Partido</th>
               <th className="px-4 py-3 text-left">Mesa</th>
               <th className="px-4 py-3 text-left">Resp. Mesa</th>
+              <th className="px-4 py-3 text-left">Resumo</th>
               <th className="px-4 py-3 text-left">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {vereadores.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-gray-400">
+                <td colSpan={8} className="px-4 py-8 text-center text-gray-400">
                   Nenhum vereador cadastrado.
                 </td>
               </tr>
@@ -145,6 +146,7 @@ export function Vereadores() {
                 </td>
                 <td className="px-4 py-3 text-gray-600">{v.mesa}</td>
                 <td className="px-4 py-3 text-gray-600">{v.responsabilidade_mesa}</td>
+                <td className="px-4 py-3 text-gray-500 max-w-xs truncate">{v.resumo}</td>
                 <td className="px-4 py-3">
                   <button
                     onClick={() => abrirEdicao(v.id)}
