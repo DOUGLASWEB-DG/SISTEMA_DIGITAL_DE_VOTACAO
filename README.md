@@ -52,6 +52,39 @@ O **SDV-PRO** é uma plataforma Fullstack desenvolvida para transformar a forma 
 
 ---
 
+## 🔄 Fluxo de Funcionamento do Sistema
+
+O SDV-PRO foi projetado para seguir o rito legislativo real, garantindo que cada etapa da sessão seja documentada e configurável.
+
+### Diagrama de Processo
+```mermaid
+graph TD
+    A[Autenticação Segura] --> B[Painel Administrativo]
+    B --> C[Gestão de Vereadores]
+    B --> D[Cadastro de Protocolos]
+    B --> E[Configurações Regimentais]
+    
+    C --> F[Planejamento de Sessão]
+    D --> F
+    
+    F --> G[Abertura de Sessão Legislativa]
+    G --> H[Pauta e Ordem do Dia]
+    H --> I[Registro de Tramitação]
+    
+    I --> J[Encerramento e Histórico]
+    E -.->|Aplica Regras| G
+```
+
+### Detalhamento das Etapas
+
+1. **Gestão de Parlamentares:** Cadastro completo de vereadores, incluindo foto, partido e cargo ocupado na Mesa Diretora (Presidente, Secretário, etc.).
+2. **Tramitação de Protocolos:** Registro de Projetos de Lei, Requerimentos e Indicações com definição de **Ementa** e **Rito de Votação** (Maioria Simples, Absoluta ou 2/3).
+3. **Configurações Dinâmicas:** Adaptabilidade ao regimento interno, permitindo configurar se o Presidente vota em todas as matérias ou apenas em caso de empate (voto de minerva).
+4. **Controle de Sessões:** Criação e gestão de sessões ordinárias e extraordinárias, organizadas por exercício e com controle rigoroso de status.
+5. **Histórico e Transparência:** Armazenamento relacional que garante a integridade dos dados para futuras gerações de atas e relatórios de transparência.
+
+---
+
 ## 📦 Como Executar o Projeto
 
 ### Pré-requisitos

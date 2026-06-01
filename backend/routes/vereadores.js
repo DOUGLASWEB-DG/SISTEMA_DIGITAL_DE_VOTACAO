@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-//todAS AS ROTAS
-=======
-
-//Todas as Rotas
->>>>>>> 397b3b7d43841e65af92287f9f1cf8f2e119bb13
+// Rotas de Vereadores
 const router = require('express').Router()
 const db = require('../db')
 const upload = require('../upload')
