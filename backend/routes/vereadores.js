@@ -1,8 +1,9 @@
-
 //todAS AS ROTAS
 const router = require('express').Router()
 const db = require('../db')
 const upload = require('../upload')
+const auth = require('../middleware/auth')
+
 router.get('/', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM vereadores ORDER BY nome')
   res.json(rows)
@@ -14,7 +15,7 @@ router.get('/:id', async (req, res) => {
   res.json(rows[0])
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { nome, apelido, partido, mesa, responsabilidade_mesa, foto_url, resumo } = req.body
   if (!nome) return res.status(400).json({ erro: 'Nome é obrigatório' })
   const [result] = await db.query(
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
   res.status(201).json({ id: result.insertId })
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   const { nome, apelido, partido, mesa, responsabilidade_mesa, foto_url, resumo, ativo } = req.body
   if (!nome) return res.status(400).json({ erro: 'Nome é obrigatório' })
   await db.query(
@@ -34,7 +35,7 @@ router.put('/:id', async (req, res) => {
   res.json({ ok: true })
 })
 
-router.post('/upload', upload.single('foto'), (req, res) => {
+router.post('/upload', auth, upload.single('foto'), (req, res) => {
   if (!req.file) return res.status(400).json({ erro: 'Nenhum arquivo enviado' })
   res.json({ url: `/uploads/${req.file.filename}` })
 })

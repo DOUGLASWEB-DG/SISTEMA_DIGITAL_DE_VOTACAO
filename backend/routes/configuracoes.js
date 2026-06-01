@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const db = require('../db')
+const auth = require('../middleware/auth')
 
 router.get('/', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM configuracoes')
@@ -8,7 +9,7 @@ router.get('/', async (req, res) => {
   res.json(config)
 })
 
-router.put('/', async (req, res) => {
+router.put('/', auth, async (req, res) => {
   const entries = Object.entries(req.body)
   for (const [chave, valor] of entries) {
     await db.query(

@@ -1,13 +1,27 @@
+
+
 import axios from 'axios';
+import { useAuthStore } from '../store/useAuthStore';
 
 const api = axios.create({
     baseURL: '/api'
 })
 
+api.interceptors.request.use((config) => {
+    const token = useAuthStore.getState().token;
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        const message = error.response?.data?.erro || 'Ocorreu um erro inesperado';
+        if (error.response?.status === 401) {
+            useAuthStore.getState().logout();
+        }
+        const message = error.response?.data?.erro || error.response?.data?.error || 'Ocorreu um erro inesperado';
         return Promise.reject(new Error(message));
     }
 );

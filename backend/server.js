@@ -8,6 +8,7 @@ app.use(cors())
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
+app.use('/api/auth',           require('./routes/auth'))
 app.use('/api/sessoes',        require('./routes/sessoes'))
 app.use('/api/vereadores',     require('./routes/vereadores'))
 app.use('/api/protocolos',     require('./routes/protocolos'))

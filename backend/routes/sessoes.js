@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const db = require('../db')
+const auth = require('../middleware/auth')
 
 router.get('/', async (req, res) => {
   const { ano } = req.query
@@ -16,7 +17,7 @@ router.get('/:id', async (req, res) => {
   res.json(rows[0])
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { numero, tipo, data, hora, situacao, exercicio, periodo_legislativo_id, sessao } = req.body
   if (!data) return res.status(400).json({ erro: 'Data é obrigatória' })
   if (!tipo)  return res.status(400).json({ erro: 'Tipo é obrigatório' })
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
   res.status(201).json({ id: result.insertId })
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   const { numero, tipo, data, hora, situacao, exercicio, periodo_legislativo_id, sessao } = req.body
   if (!data) return res.status(400).json({ erro: 'Data é obrigatória' })
   await db.query(
@@ -37,7 +38,7 @@ router.put('/:id', async (req, res) => {
   res.json({ ok: true })
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   await db.query('DELETE FROM sessoes WHERE id = ?', [req.params.id])
   res.json({ ok: true })
 })
