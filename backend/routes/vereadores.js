@@ -1,5 +1,5 @@
 
-//todAS AS ROTAS
+//Todas as Rotas
 const router = require('express').Router()
 const db = require('../db')
 const upload = require('../upload')
