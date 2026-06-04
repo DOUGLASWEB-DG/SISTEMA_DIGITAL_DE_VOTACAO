@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import api from '../services/api'
 import { useModal } from '../hooks/useModal'
 import { Modal } from '../components/ui/Modal'
@@ -27,23 +27,23 @@ export function Vereadores() {
   const [form, setForm] = useState(vazio)
   const [erro, setErro] = useState('')
   const [loading, setLoading] = useState(false)
-  const modal = useModal()
+  const modal = useModal<number>()
 
-  const carregar = async () => {
+  const carregar = useCallback(async () => {
     try {
       const { data } = await api.get('/vereadores')
       setVereadores(data)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
-  }
+  }, [])
 
-  useEffect(() => { carregar() }, [])
+  useEffect(() => { carregar() }, [carregar])
 
   const abrirNovo = () => {
     setForm(vazio)
     setErro('')
-    modal.open(null)
+    modal.open()
   }
 
   const abrirEdicao = async (id: number) => {
@@ -61,8 +61,8 @@ export function Vereadores() {
       })
       setErro('')
       modal.open(id)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
   }
 
@@ -77,8 +77,8 @@ export function Vereadores() {
       }
       await carregar()
       modal.close()
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     } finally {
       setLoading(false)
     }
@@ -254,8 +254,8 @@ export function Vereadores() {
           try {
             const { data } = await api.post('/vereadores/upload', fd)
             setForm({ ...form, foto_url: data.url })
-          } catch (e: any) {
-            setErro(e.message)
+          } catch (e: unknown) {
+            if (e instanceof Error) setErro(e.message)
           }
         }}
         className="block w-full text-sm text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-brazil-blue hover:file:bg-blue-100 cursor-pointer"
