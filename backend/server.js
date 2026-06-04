@@ -35,4 +35,4 @@ app.use((err, req, res, next) => {
 })
 
 const PORT = process.env.PORT || 3333
-app.listen(PORT, () => console.log(`SDV-PRO backend rodando na porta ${PORT}`))
+app.listen(PORT, () => console.log(`DGPRO backend rodando na porta ${PORT}`))

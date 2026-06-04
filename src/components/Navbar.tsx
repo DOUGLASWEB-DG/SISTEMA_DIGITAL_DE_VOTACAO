@@ -21,7 +21,7 @@ export function Navbar() {
     <header className="bg-brazil-blue text-white shadow-lg border-b-2 border-brazil-yellow">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-bold text-lg tracking-wide">SDV-PRO</span>
+          <span className="font-bold text-lg tracking-wide">DGPRO</span>
           <span className="text-[10px] uppercase tracking-widest text-blue-200 font-medium">Sistema de Votação Digital</span>
         </div>
 

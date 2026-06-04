@@ -1,4 +1,4 @@
-# SDV-PRO | Sistema Digital de Votação Legislativa
+# DGPRO | Sistema Digital de Votação Legislativa
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -12,7 +12,7 @@
 
 ## 🏛️ Sobre o Projeto
 
-O **SDV-PRO** é uma plataforma Fullstack desenvolvida para transformar a forma como Câmaras Municipais realizam suas sessões de votação. Mais do que um CRUD, o sistema resolve dores críticas da gestão pública: **erros na contagem manual de votos, falta de transparência em tempo real e excesso de burocracia física.**
+O **DGPRO** é uma plataforma Fullstack desenvolvida para transformar a forma como Câmaras Municipais realizam suas sessões de votação. Mais do que um CRUD, o sistema resolve dores críticas da gestão pública: **erros na contagem manual de votos, falta de transparência em tempo real e excesso de burocracia física.**
 
 ### 🌟 Problemas Reais que Resolve:
 - **Contagem de Votos Auditável:** Automatiza o cálculo de quórum e resultados com base no regimento interno.
@@ -54,7 +54,7 @@ O **SDV-PRO** é uma plataforma Fullstack desenvolvida para transformar a forma 
 
 ## 🔄 Fluxo de Funcionamento do Sistema
 
-O SDV-PRO foi projetado para seguir o rito legislativo real, garantindo que cada etapa da sessão seja documentada e configurável.
+O DGPRO foi projetado para seguir o rito legislativo real, garantindo que cada etapa da sessão seja documentada e configurável.
 
 ### Diagrama de Processo
 ```mermaid
@@ -74,6 +74,13 @@ graph TD
     I --> J[Encerramento e Histórico]
     E -.->|Aplica Regras| G
 ```
+## 📸 Demonstração
+
+### Tela de Login
+
+<p align="center">
+  <img src="./docs/images/login.png" alt="Tela de Login DGPRO" width="900">
+</p>
 
 ### Detalhamento das Etapas
 
