@@ -21,8 +21,8 @@ export function Login() {
       const { data } = await api.post('/auth/login', { email, senha })
       setAuth(data.usuario, data.token)
       navigate('/sessoes')
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     } finally {
       setLoading(false)
     }

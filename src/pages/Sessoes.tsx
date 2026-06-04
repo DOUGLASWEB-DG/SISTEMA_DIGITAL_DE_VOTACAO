@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import api from '../services/api'
 import { useAnoStore } from '../store/useAnoStore'
 import { useModal } from '../hooks/useModal'
@@ -32,23 +32,23 @@ export function Sessoes() {
   const [form, setForm] = useState(vazio)
   const [erro, setErro] = useState('')
   const [loading, setLoading] = useState(false)
-  const modal = useModal()
+  const modal = useModal<number>()
 
-  const carregar = async () => {
+  const carregar = useCallback(async () => {
     try {
       const { data } = await api.get(`/sessoes?ano=${ano}`)
       setSessoes(data)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
-  }
+  }, [ano])
 
-  useEffect(() => { carregar() }, [ano])
+  useEffect(() => { carregar() }, [carregar])
 
   const abrirNovo = () => {
     setForm({ ...vazio, exercicio: ano })
     setErro('')
-    modal.open(null)
+    modal.open()
   }
 
   const abrirEdicao = async (id: number) => {
@@ -66,8 +66,8 @@ export function Sessoes() {
       })
       setErro('')
       modal.open(id)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
   }
 
@@ -83,8 +83,8 @@ export function Sessoes() {
       }
       await carregar()
       modal.close()
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     } finally {
       setLoading(false)
     }
@@ -95,9 +95,10 @@ export function Sessoes() {
     try {
       await api.delete(`/sessoes/${id}`)
       await carregar()
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
+  }
   }
 
   return (

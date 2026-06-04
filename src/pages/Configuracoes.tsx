@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import api from '../services/api'
 import { Modal } from '../components/ui/Modal'
 import { useModal } from '../hooks/useModal'
@@ -24,18 +24,18 @@ export function Configuracoes() {
   const [loading, setLoading] = useState(false)
   const [sucesso, setSucesso] = useState(false)
   const [erro, setErro] = useState('')
-  const modal = useModal()
+  const modal = useModal<string>()
 
-  const carregar = async () => {
+  const carregar = useCallback(async () => {
     try {
       const { data } = await api.get('/configuracoes')
       setConfig({ ...vazio, ...data })
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
-  }
+  }, [])
 
-  useEffect(() => { carregar() }, [])
+  useEffect(() => { carregar() }, [carregar])
 
   const salvar = async () => {
     setLoading(true)
@@ -45,8 +45,8 @@ export function Configuracoes() {
       await api.put('/configuracoes', config)
       setSucesso(true)
       setTimeout(() => setSucesso(false), 3000)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     } finally {
       setLoading(false)
     }
