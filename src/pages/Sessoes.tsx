@@ -99,7 +99,6 @@ export function Sessoes() {
       if (e instanceof Error) setErro(e.message)
     }
   }
-  }
 
   return (
     <div>

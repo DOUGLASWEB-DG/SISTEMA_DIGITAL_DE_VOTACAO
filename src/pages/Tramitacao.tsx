@@ -37,23 +37,23 @@ export function Tramitacao() {
   const [form, setForm] = useState(vazio)
   const [erro, setErro] = useState('')
   const [loading, setLoading] = useState(false)
-  const modal = useModal()
+  const modal = useModal<number>()
 
-  const carregar = async () => {
+  const carregar = useCallback(async () => {
     try {
       const { data } = await api.get(`/protocolos?ano=${ano}&busca=${busca}`)
       setProtocolos(data)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
-  }
+  }, [ano, busca])
 
-  useEffect(() => { carregar() }, [ano, busca])
+  useEffect(() => { carregar() }, [carregar])
 
   const abrirNovo = () => {
     setForm({ ...vazio, exercicio: ano })
     setErro('')
-    modal.open(null)
+    modal.open()
   }
 
   const abrirEdicao = async (id: number) => {
@@ -71,8 +71,8 @@ export function Tramitacao() {
       })
       setErro('')
       modal.open(id)
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
   }
 
@@ -89,8 +89,8 @@ export function Tramitacao() {
       }
       await carregar()
       modal.close()
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     } finally {
       setLoading(false)
     }
@@ -101,8 +101,8 @@ export function Tramitacao() {
     try {
       await api.delete(`/protocolos/${id}`)
       await carregar()
-    } catch (e: any) {
-      setErro(e.message)
+    } catch (e: unknown) {
+      if (e instanceof Error) setErro(e.message)
     }
   }
 
