@@ -82,6 +82,12 @@ graph TD
   <img src="./docs/images/login.png" alt="Tela de Login DGPRO" width="900">
 </p>
 
+### Tela hero
+
+<p align="center">
+  <img src="./docs/images/hero.png" alt="Tela de Configurações DGPRO" width="900">
+</p>
+
 ### Detalhamento das Etapas
 
 1. **Gestão de Parlamentares:** Cadastro completo de vereadores, incluindo foto, partido e cargo ocupado na Mesa Diretora (Presidente, Secretário, etc.).
