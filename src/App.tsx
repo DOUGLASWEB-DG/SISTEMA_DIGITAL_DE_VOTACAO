@@ -6,6 +6,7 @@ import { Vereadores } from './pages/Vereadores'
 import { Configuracoes } from './pages/Configuracoes'
 import { Login } from './pages/Login'
 import { useAuthStore } from './store/useAuthStore'
+import { ErrorBoundary } from './components/ui/ErrorBoundary'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((state) => state.token)
@@ -24,10 +25,10 @@ export default function App() {
               <Route path="/login" element={!token ? <Login /> : <Navigate to="/sessoes" replace />} />
               
               <Route path="/" element={<PrivateRoute><Navigate to="/sessoes" replace /></PrivateRoute>} />
-              <Route path="/sessoes" element={<PrivateRoute><Sessoes /></PrivateRoute>} />
-              <Route path="/tramitacao" element={<PrivateRoute><Tramitacao /></PrivateRoute>} />
-              <Route path="/vereadores" element={<PrivateRoute><Vereadores /></PrivateRoute>} />
-              <Route path="/configuracoes" element={<PrivateRoute><Configuracoes /></PrivateRoute>} />
+              <Route path="/sessoes" element={<PrivateRoute><ErrorBoundary nomeDaPagina="Sessões"><Sessoes /></ErrorBoundary></PrivateRoute>} />
+              <Route path="/tramitacao" element={<PrivateRoute><ErrorBoundary nomeDaPagina="Tramitação"><Tramitacao /></ErrorBoundary></PrivateRoute>}/>
+              <Route path="/vereadores" element={<PrivateRoute><ErrorBoundary nomeDaPagina="Vereadores"><Vereadores /></ErrorBoundary></PrivateRoute>} />
+              <Route path="/configuracoes" element={<PrivateRoute><ErrorBoundary nomeDaPagina="Configurações"><Configuracoes /></ErrorBoundary></PrivateRoute>} />
               
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
