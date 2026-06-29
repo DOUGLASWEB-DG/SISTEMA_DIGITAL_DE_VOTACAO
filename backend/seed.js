@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
+//Funação assíncrona para resetar e popular o banco de dados com dados iniciais
 async function seedDatabase() {
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
@@ -13,6 +14,7 @@ async function seedDatabase() {
 
   console.log('🚀 Iniciando reset e seeding do banco de dados...');
 
+  // Desabilita as verificações de chave estrangeira para permitir truncar tabelas relacionadas
   try {
     await connection.query('SET FOREIGN_KEY_CHECKS = 0');
     await connection.query('TRUNCATE TABLE usuarios');

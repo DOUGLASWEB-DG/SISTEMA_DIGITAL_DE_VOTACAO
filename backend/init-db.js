@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+//Função assíncrona para inicializar o banco de dados
 async function init() {
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,

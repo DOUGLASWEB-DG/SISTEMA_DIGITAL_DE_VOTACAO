@@ -2,6 +2,7 @@ const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
+//Função assincrona para criar o usuário admin
 async function createAdmin() {
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,

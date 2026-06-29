@@ -3,6 +3,7 @@ const cors = require('cors')
 const path = require('path')
 require('dotenv').config()
 
+//Servidor Express para a API do backend
 const app = express()
 app.use(cors())
 app.use(express.json())

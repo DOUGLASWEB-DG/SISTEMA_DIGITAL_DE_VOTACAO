@@ -4,7 +4,7 @@ const db = require('../db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// Login
+// Rota para autenticação de usuários
 router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
 

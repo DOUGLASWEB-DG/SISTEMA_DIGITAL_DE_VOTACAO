@@ -2,6 +2,7 @@ const router = require('express').Router()
 const db = require('../db')
 const auth = require('../middleware/auth')
 
+//Rotas para gerenciar configurações
 router.get('/', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM configuracoes')
   const config = {}
@@ -9,6 +10,7 @@ router.get('/', async (req, res) => {
   res.json(config)
 })
 
+//Rota para atualizar configurações
 router.put('/', auth, async (req, res) => {
   const entries = Object.entries(req.body)
   for (const [chave, valor] of entries) {

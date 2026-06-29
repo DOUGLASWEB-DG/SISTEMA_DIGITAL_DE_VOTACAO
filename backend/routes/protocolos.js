@@ -2,6 +2,7 @@ const router = require('express').Router()
 const db = require('../db')
 const auth = require('../middleware/auth')
 
+//Rotas para gerenciar protocolos
 router.get('/', async (req, res) => {
   const { ano, busca } = req.query
   let sql = 'SELECT * FROM protocolos WHERE exercicio = ?'
@@ -12,12 +13,14 @@ router.get('/', async (req, res) => {
   res.json(rows)
 })
 
+//Rota para buscar um protocolo específico por ID
 router.get('/:id', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM protocolos WHERE id = ?', [req.params.id])
   if (!rows.length) return res.status(404).json({ erro: 'Protocolo não encontrado' })
   res.json(rows[0])
 })
 
+//Rota para criar um novo protocolo
 router.post('/', auth, async (req, res) => {
   const { numero, tipo, data, proponente, ementa, status, exercicio, votacao } = req.body
   if (!proponente) return res.status(400).json({ erro: 'Proponente é obrigatório' })
@@ -29,6 +32,7 @@ router.post('/', auth, async (req, res) => {
   res.status(201).json({ id: result.insertId })
 })
 
+//Rota para atualizar um protocolo existente
 router.put('/:id', auth, async (req, res) => {
   const { numero, tipo, data, proponente, ementa, status, exercicio, votacao } = req.body
   if (!proponente) return res.status(400).json({ erro: 'Proponente é obrigatório' })
@@ -39,6 +43,7 @@ router.put('/:id', auth, async (req, res) => {
   res.json({ ok: true })
 })
 
+//Rota para deletar um protocolo
 router.delete('/:id', auth, async (req, res) => {
   await db.query('DELETE FROM protocolos WHERE id = ?', [req.params.id])
   res.json({ ok: true })

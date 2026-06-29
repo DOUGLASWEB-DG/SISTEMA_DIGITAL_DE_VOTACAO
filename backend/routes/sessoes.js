@@ -2,6 +2,7 @@ const router = require('express').Router()
 const db = require('../db')
 const auth = require('../middleware/auth')
 
+//Rotas para gerenciar sessões
 router.get('/', async (req, res) => {
   const { ano } = req.query
   const [rows] = await db.query(
@@ -11,12 +12,14 @@ router.get('/', async (req, res) => {
   res.json(rows)
 })
 
+//Rota para buscar uma sessão específica por ID
 router.get('/:id', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM sessoes WHERE id = ?', [req.params.id])
   if (!rows.length) return res.status(404).json({ erro: 'Sessão não encontrada' })
   res.json(rows[0])
 })
 
+//Rota para criar uma nova sessão
 router.post('/', auth, async (req, res) => {
   const { numero, tipo, data, hora, situacao, exercicio, periodo_legislativo_id, sessao } = req.body
   if (!data) return res.status(400).json({ erro: 'Data é obrigatória' })
@@ -28,6 +31,7 @@ router.post('/', auth, async (req, res) => {
   res.status(201).json({ id: result.insertId })
 })
 
+//Rota para atualizar uma sessão existente
 router.put('/:id', auth, async (req, res) => {
   const { numero, tipo, data, hora, situacao, exercicio, periodo_legislativo_id, sessao } = req.body
   if (!data) return res.status(400).json({ erro: 'Data é obrigatória' })
@@ -38,6 +42,7 @@ router.put('/:id', auth, async (req, res) => {
   res.json({ ok: true })
 })
 
+//Rota para deletar uma sessão
 router.delete('/:id', auth, async (req, res) => {
   await db.query('DELETE FROM sessoes WHERE id = ?', [req.params.id])
   res.json({ ok: true })
